@@ -4,7 +4,7 @@
   "description": "tienda online ",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon src/index.js"
+    "server": "nodemon api/src/index.js"
   },
   "author": "",
   "license": "ISC",
