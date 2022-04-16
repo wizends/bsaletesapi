@@ -1,5 +1,4 @@
-const category = require('./category')
-
+const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = (sequelize, type) => {
     return sequelize.define('product', {
@@ -12,6 +11,6 @@ module.exports = (sequelize, type) => {
         url_image:type.VARCHAR,
         price:type.FLOAT,
         discount:type.INTEGER,
-        category: category.id
+        category: type.INTEGER
     })
 }
