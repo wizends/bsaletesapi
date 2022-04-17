@@ -3,8 +3,10 @@ const router = Router();
 const bd = require('../config/config')
 const { QueryTypes } = require('sequelize');
 const Product = require('../models/products')
-const Sequelize  = require('sequelize')
+const Sequelize  = require('sequelize');
+const { response } = require('express');
 const Op = Sequelize.Op
+
 router.get('/categories', async (req,res) => {
     const categories = await bd.query("SELECT * FROM `category`", { type: QueryTypes.SELECT });
 
@@ -21,12 +23,8 @@ router.get(`/categories/:id`, async (req,res) => {
 })
 router.get(`/products/:search`, async (req,res) => {
     const search = req.params.search;
-    Product.findAll({
-        where:{name:{[Op.like]: '%' + search + '%'}}})
-        .then(res => res.json())
-    const productsPerCat = await bd.query(`SELECT * FROM product where name = "${search}"`,{ type: QueryTypes.SELECT, bind:['active']})
-    res.json(productsPerCat)
+    const searchProduct = await Product.findAll({ where: { name: {[Op.like]: '%' + search + '%' } } });
+    res.json(searchProduct)
 })
-
 
 module.exports = router;

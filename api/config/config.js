@@ -5,7 +5,6 @@ const sequelize = new Sequelize('bsale_test', 'bsale_test', 'bsale_test', {
     dialect: 'mysql'
 
 });
-
 const verifyConn = async () => {
     try {
         await sequelize.authenticate();
