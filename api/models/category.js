@@ -1,10 +1,18 @@
-module.exports = (sequelize, type) => {
-    return sequelize.define('category', {
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config/config')
+
+
+const Category = sequelize.define('category', {
+
         id:{
-            type: type.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        name:type.VARCHAR 
-    })
-}
+        name:DataTypes.STRING 
+},{freezeTableName: true,
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,})
+
+module.exports = Category

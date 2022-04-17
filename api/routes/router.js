@@ -3,23 +3,47 @@ const router = Router();
 const bd = require('../config/config')
 const { QueryTypes } = require('sequelize');
 const Product = require('../models/products')
+const Category = require('../models/category')
 const Sequelize  = require('sequelize');
 const { response } = require('express');
 const Op = Sequelize.Op
 
 router.get('/categories', async (req,res) => {
-    const categories = await bd.query("SELECT * FROM `category`", { type: QueryTypes.SELECT });
-
-    res.status(200).json(categories)
+    try {
+        const categories2 = await Category.findAll();
+        res.status(200).json(categories2)
+    } catch (error) {
+        
+    }
 })
 router.get('/products', async (req,res)=>{
-    const products = await bd.query("SELECT * FROM `product`", { type: QueryTypes.SELECT });
-    res.json(products)
+    try {
+        const products = await Product.findAll()
+        .then(data => {data.map(x => {
+            if(x.url_image !== null){
+                res.json(data)
+            }else{
+                console.log("faltan urls")
+            }
+        })
+        })
+        
+
+    } catch (error) {
+        console.log(error)
+    }
+    
 })
 router.get(`/categories/:id`, async (req,res) => {
-    const id = req.params.id;
-    const productsPerCat = await bd.query(`SELECT * FROM product where category = ${id}`,{ type: QueryTypes.SELECT, bind:['active']})
-    res.json(productsPerCat)
+    
+    try {
+        const id = req.params.id;
+        const productsPerCat2 = await Product.findAll({where:{category:id}})
+        res.json(productsPerCat2)
+    } catch (error) {
+        
+    }
+    
 })
 router.get(`/products/:search`, async (req,res) => {
     const search = req.params.search;
