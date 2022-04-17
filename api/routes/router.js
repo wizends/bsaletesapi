@@ -17,22 +17,8 @@ router.get('/categories', async (req,res) => {
     }
 })
 router.get('/products', async (req,res)=>{
-    try {
-        const products = await Product.findAll()
-        .then(data => {data.map(x => {
-            if(x.url_image !== null){
-                res.json(data)
-            }else{
-                console.log("faltan urls")
-            }
-        })
-        })
-        
-
-    } catch (error) {
-        console.log(error)
-    }
-    
+    const products = await Product.findAll();
+    res.json(products)
 })
 router.get(`/categories/:id`, async (req,res) => {
     

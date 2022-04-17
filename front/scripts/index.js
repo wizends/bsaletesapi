@@ -34,6 +34,9 @@ showAll.addEventListener("click", async (e) => {
     .then(data => {
         console.log(data)
         data.map(x => {
+            if(x.url_image == null || x.url_image == ''){
+                x.url_image = "../../nodisp.png"
+            }
             productsContainer.innerHTML += `
             <div class="card">
                 <img class="card-img-top" src="${x.url_image}" alt="Card image cap">
@@ -55,7 +58,6 @@ searchInput.addEventListener("submit", async (e) => {
     fetch(`${URI}/products/${search}`)
     .then(res => res.json())
     .then(data => {
-        console.log(data)
         productsContainer.innerHTML = ""
         searchResult.innerHTML = ""
         if(data.length == 0){
@@ -72,6 +74,9 @@ searchInput.addEventListener("submit", async (e) => {
             
         }else{
             data.map(x => {
+                if(x.url_image == null || x.url_image == ''){
+                    x.url_image = "../../nodisp.png"
+                }
             
                 productsContainer.innerHTML += `
                 <div class="card">
@@ -95,8 +100,10 @@ fetch(`${URI}/products`)
 .then(res => res.json())
 .catch(err => console.log(err))
 .then(data => {
-    console.log(data)
     data.map(x => {
+        if(x.url_image == null || x.url_image == ''){
+            x.url_image = "../../nodisp.png"
+        }
         productsContainer.innerHTML += `
         <div class="card">
             <img class="card-img-top" src="${x.url_image}" alt="Card image cap">
@@ -127,6 +134,9 @@ const handleClick = async (id) => {
         productsContainer.innerHTML = ""
         searchResult.innerHTML = ""
         data.map(x => {
+            if(x.url_image == null || x.url_image == ''){
+                x.url_image = "../../nodisp.png"
+            }
             productsContainer.innerHTML += `
             <div class="card">
                 <img class="card-img-top" src="${x.url_image}" alt="Card image cap">
