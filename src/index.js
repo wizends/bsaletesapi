@@ -14,16 +14,13 @@ const router = require('../routes/router')
 /**Configuraciones */
 //app.use(cors());
 
-app.set('port',3000);
+const port_number = server.listen(process.env.PORT || 3000);
+app.listen(port_number);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 app.use(router)
 
-
-const server = app.listen(app.get('port'), () => {
-    console.log("Server status 200 on port 3004")
-})
 server.keepAliveTimeout = 30 * 1000;
 server.headersTimeout = 35 * 1000;
