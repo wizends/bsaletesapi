@@ -6,7 +6,6 @@ const Product = require('../models/products')
 const Category = require('../models/category')
 const Sequelize  = require('sequelize');
 const { response } = require('express');
-const paginate = require('express-paginate');
 const Op = Sequelize.Op
 
 router.get('/categories', async (req,res) => {
