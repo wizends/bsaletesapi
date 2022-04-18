@@ -1,7 +1,7 @@
 
 const express = require('express');
 const morgan = require('morgan');
-//const cors = require('cors')
+const cors = require('cors')
 const app = express();
 
 app.use(express.json({
@@ -12,7 +12,7 @@ app.use(express.json({
 const router = require('../routes/router')
 
 /**Configuraciones */
-//app.use(cors());
+app.use(cors());
 
 const port_number = app.listen(process.env.PORT || 3004);
 app.listen(port_number);
