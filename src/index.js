@@ -14,7 +14,7 @@ const router = require('../routes/router')
 /**Configuraciones */
 //app.use(cors());
 
-app.set('port',3004);
+app.set('port',3000);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
