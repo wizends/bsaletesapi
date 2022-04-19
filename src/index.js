@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
 
+const port = 3004;
+
 app.use(express.json({
     limit: '1mb'
 }
@@ -11,10 +13,11 @@ app.use(express.json({
 
 const router = require('../routes/router')
 
+
 /**Configuraciones */
 app.use(cors());
 
-const port_number = app.listen(process.env.PORT || 3004);
+const port_number = app.listen(process.env.PORT || port);
 app.listen(port_number);
 app.use(morgan('dev'));
 app.use(express.json());

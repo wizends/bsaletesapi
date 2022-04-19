@@ -21,6 +21,10 @@ router.get('/categories', async (req,res) => {
         
     }
 });
+router.get('/products', async (req, res) => {
+    const allProducts = await Product.findAll();
+    res.json(allProducts)
+});
 router.get('/products/page', async (req,res)=>{
     const {page,limit} = req.query;
     const products = await Product.findAndCountAll({
