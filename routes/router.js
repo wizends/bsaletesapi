@@ -1,12 +1,17 @@
 const {Router} = require('express');
 const router = Router();
-const bd = require('../config/config')
-const { QueryTypes } = require('sequelize');
 const Product = require('../models/products')
 const Category = require('../models/category')
 const Sequelize  = require('sequelize');
-const { response } = require('express');
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
+
+router.get('/pageQuantity', async (req,res) => {
+    const quantity = await Product.findAndCountAll({
+        limit:0,
+        offset:0
+    });
+    res.json(quantity.count)
+})
 
 router.get('/categories', async (req,res) => {
     try {
@@ -16,15 +21,22 @@ router.get('/categories', async (req,res) => {
         
     }
 });
-router.get('/products', async (req,res)=>{
-    const products = await Product.findAll();
-    res.json(products)
+router.get('/products/page', async (req,res)=>{
+    const {page,limit} = req.query;
+    const products = await Product.findAndCountAll({
+        limit:parseInt(limit),
+        offset:parseInt(page * limit)
+    });
+    res.json([products])
+
 });
 router.get(`/categories/:id`, async (req,res) => {
     
     try {
         const id = req.params.id;
-        const productsPerCat2 = await Product.findAll({where:{category:id}})
+        const productsPerCat2 = await Product.findAll({
+            where:{category:id},
+        });
         res.json(productsPerCat2)
     } catch (error) {
         
@@ -33,7 +45,9 @@ router.get(`/categories/:id`, async (req,res) => {
 });
 router.get(`/products/search/:search`, async (req,res) => {
     const search = req.params.search;
-    const searchProduct = await Product.findAll({ where: { name: {[Op.like]: '%' + search + '%' } } });
+    const searchProduct = await Product.findAll({ 
+        where: { name: {[Op.like]: '%' + search + '%' } },
+    });
     res.json(searchProduct)
 });
 router.get(`/products/filter/:filter`, async (req,res) => {
